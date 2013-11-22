@@ -1,0 +1,1 @@
+#ngMockE2E sample
