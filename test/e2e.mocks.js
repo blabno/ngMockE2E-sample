@@ -112,7 +112,7 @@ angular.scenario.dsl('mockApi', function ()
                 } else {
                     return this.addFuture("get triggered flag for " + itemName, function (done)
                     {
-                        done(null, api[itemName].triggered);
+                        done(null, api[itemName].triggered || false);
                     });
                 }
             }
