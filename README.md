@@ -69,27 +69,30 @@ You will see that the response will be either value of mocks.api.post_user_activ
 So in case of our test (invalid token) we simply return 403 HTTP code. That's it.
 
 ##Mocking returned data
+
 Often we need to mock data returned from $httpBackend. Look at this:
 
-    describe("when activation token is valid", function ()
+``` js
+describe("when activation token is valid", function ()
+{
+    var activationPath = "/activate/2/defg1234";
+    beforeEach(function ()
     {
-        var activationPath = "/activate/2/defg1234";
-        beforeEach(function ()
-        {
-//            Given
-            mockApi("post_user_activate").response({code: 200, data: "access token"});
-            mockApi("get_user_me").response({code: 200, data: {email: "bernard@itcrowd.pl"}});
+        // Given
+        mockApi("post_user_activate").response({code: 200, data: "access token"});
+        mockApi("get_user_me").response({code: 200, data: {email: "bernard@itcrowd.pl"}});
 
-//            When
-            browser().navigateTo(activationPath);
-        });
+        // When
+        browser().navigateTo(activationPath);
+    });
 
-        it("should show activation complete panel", function ()
-        {
-//            Then
-            expect(browser().location().path()).toEqual(activationPath);
-            expect(element(".view-user-activate:visible").count()).toEqual(1);
-        });
+    it("should show activation complete panel", function ()
+    {
+        // Then
+        expect(browser().location().path()).toEqual(activationPath);
+        expect(element(".view-user-activate:visible").count()).toEqual(1);
+    });
+```
 
 The request that activates the account should return access token so that user doesn not need to log in.
 
